@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://topdown.soacourse.unsw.edu.au" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TopDownSimpleService"
+	targetNamespace="http://topdown.soacourse.unsw.edu.au">
+
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://topdown.soacourse.unsw.edu.au">
+
+			<xsd:element name="importMarketDataRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="sec" nillable="false" type="xsd:string" />
+						<xsd:element name="startDate" nillable="false" type="xsd:string" />
+						<xsd:element name="endDate" nillable="false" type="xsd:string" />
+						<xsd:element name="dataSource" nillable="false" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="importMarketDataResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="returnData" nillable="false" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="convertMarketDataRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="eventSetId" nillable="false" type="xsd:string" />
+						<xsd:element name="targetCurrency" nillable="false"
+							type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="convertMarketDataResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="returnData" nillable="false" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="showMarketDataRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="eventSetId1" nillable="false" type="xsd:string" />
+						<xsd:element name="eventSetId2" nillable="false" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="showMarketDataResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="returnData" nillable="false" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="downloadFileRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="eventSetId" nillable="false" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="downloadFileResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="returnData" nillable="false" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+
+			<xsd:complexType name="serviceFaultType">
+				<xsd:sequence>
+					<xsd:element name="errcode" type="xsd:string" />
+					<xsd:element name="errtext" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="importMarketFault" type="tns:serviceFaultType" />
+			<xsd:element name="convertMarketFault" type="tns:serviceFaultType" />
+			<xsd:element name="showMarketFault" type="tns:serviceFaultType" />
+			<xsd:element name="downloadFileFault" type="tns:serviceFaultType" />
+
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="importMarketDataRequestMsg">
+		<wsdl:part element="tns:importMarketDataRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="importMarketDataResponseMsg">
+		<wsdl:part element="tns:importMarketDataResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="importMarketFaultMsg">
+		<wsdl:part element="tns:importMarketFault" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="convertMarketDataRequestMsg">
+		<wsdl:part element="tns:convertMarketDataRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="convertMarketDataResponseMsg">
+		<wsdl:part element="tns:convertMarketDataResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="convertMarketFaultMsg">
+		<wsdl:part element="tns:convertMarketFault" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="showMarketDataRequestMsg">
+		<wsdl:part element="tns:showMarketDataRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="showMarketDataResponseMsg">
+		<wsdl:part element="tns:showMarketDataResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="showMarketFaultMsg">
+		<wsdl:part element="tns:showMarketFault" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="downloadFileRequestMsg">
+		<wsdl:part element="tns:downloadFileRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="downloadFileResponseMsg">
+		<wsdl:part element="tns:downloadFileResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="downloadFileFaultMsg">
+		<wsdl:part element="tns:downloadFileFault" name="parameters" />
+	</wsdl:message>
+
+
+	<wsdl:portType name="TopDownSimpleService">
+
+		<wsdl:operation name="importMarketData">
+			<wsdl:input message="tns:importMarketDataRequestMsg" />
+			<wsdl:output message="tns:importMarketDataResponseMsg" />
+			<wsdl:fault name="secfault" message="tns:importMarketFaultMsg" />
+			<wsdl:fault name="startfault" message="tns:importMarketFaultMsg" />
+			<wsdl:fault name="endfault" message="tns:importMarketFaultMsg" />
+			<wsdl:fault name="rangefault" message="tns:importMarketFaultMsg" />
+
+		</wsdl:operation>
+
+		<wsdl:operation name="convertMarketData">
+			<wsdl:input message="tns:convertMarketDataRequestMsg" />
+			<wsdl:output message="tns:convertMarketDataResponseMsg" />
+			<wsdl:fault name="idfault" message="tns:convertMarketFaultMsg" />
+			<wsdl:fault name="currencyfault" message="tns:convertMarketFaultMsg" />
+		</wsdl:operation>
+
+		<wsdl:operation name="showMarketData">
+			<wsdl:input message="tns:showMarketDataRequestMsg" />
+			<wsdl:output message="tns:showMarketDataResponseMsg" />
+			<wsdl:fault name="id1fault" message="tns:showMarketFaultMsg" />
+			<wsdl:fault name="id2fault" message="tns:showMarketFaultMsg" />
+		</wsdl:operation>
+
+		<wsdl:operation name="downloadFile">
+			<wsdl:input message="tns:downloadFileRequestMsg" />
+			<wsdl:output message="tns:downloadFileResponseMsg" />
+			<wsdl:fault name="idfault" message="tns:downloadFileFaultMsg" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="TopDownSimpleServiceSOAP" type="tns:TopDownSimpleService">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="importMarketData">
+			<soap:operation
+				soapAction="http://topdown.soacourse.unsw.edu.au/importMarketData" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="secfault">
+				<soap:fault name="secfault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="startfault">
+				<soap:fault name="startfault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="endfault">
+				<soap:fault name="endfault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="rangefault">
+				<soap:fault name="rangefault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+
+		<wsdl:operation name="convertMarketData">
+			<soap:operation
+				soapAction="http://topdown.soacourse.unsw.edu.au/convertMarketData" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="idfault">
+				<soap:fault name="idfault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="currencyfault">
+				<soap:fault name="currencyfault" use="literal" />
+			</wsdl:fault>
+
+		</wsdl:operation>
+
+		<wsdl:operation name="showMarketData">
+			<soap:operation soapAction="http://topdown.soacourse.unsw.edu.au/showMarketData" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="id1fault">
+				<soap:fault name="id1fault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="id2fault">
+				<soap:fault name="id2fault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+
+		<wsdl:operation name="downloadFile">
+			<soap:operation soapAction="http://topdown.soacourse.unsw.edu.au/downloadFile" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="idfault">
+				<soap:fault name="idfault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="TopDownSimpleService">
+		<wsdl:port binding="tns:TopDownSimpleServiceSOAP" name="TopDownSimpleServiceSOAP">
+			<soap:address location="http://www.example.org/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
